@@ -1,23 +1,13 @@
-import AppError from '@shared/errors/AppError';
+import { ApiError } from '@shared/helpers/ApiError';
 import { NextFunction, Request, Response } from 'express';
 
-function errorMiddleware(
-  error: Error,
-  request: Request,
-  response: Response,
+export const errorMiddleware = (
+  error: Error & Partial<ApiError>,
+  req: Request,
+  res: Response,
   next: NextFunction,
-) {
-  if (error instanceof AppError) {
-    return response.status(error.statusCode).json({
-      status: 'error',
-      message: error.message,
-    });
-  }
-
-  return response.status(500).json({
-    status: 'error',
-    message: 'Internal server error!',
-  });
-}
-
-export default errorMiddleware;
+) => {
+  const statusCode = error.statusCode ?? 500;
+  const message = error.statusCode ? error.message : 'Internal Server Error';
+  return res.status(statusCode).json({ message });
+};

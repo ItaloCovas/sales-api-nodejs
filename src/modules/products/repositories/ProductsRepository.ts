@@ -1,12 +1,23 @@
 import dataSource from '@shared/typeorm';
 import { Repository } from 'typeorm';
+import { CreateProductDTO, IProductsRepository } from '../interfaces';
 import Product from '../typeorm/entities/Product';
 
-export class ProductsRepository {
+class ProductsRepository implements IProductsRepository {
   private repository: Repository<Product>;
 
-  private constructor() {
+  constructor() {
     this.repository = dataSource.getRepository(Product);
+  }
+
+  public async create({
+    name,
+    price,
+    amount,
+  }: CreateProductDTO): Promise<Product> {
+    const product = this.repository.create({ name, price, amount });
+
+    return await this.repository.save(product);
   }
 
   public async findByName(name: string): Promise<Product | null> {
@@ -19,3 +30,5 @@ export class ProductsRepository {
     return product;
   }
 }
+
+export default new ProductsRepository();
