@@ -1,4 +1,5 @@
-import { BadRequestError, NotFoundError } from '@shared/helpers/ApiError';
+import { BadRequestError } from '@shared/helpers/ApiError';
+import { hash } from 'bcryptjs';
 import { injectable, inject } from 'tsyringe';
 import {
   CreateUserDTO,
@@ -23,10 +24,12 @@ export class UsersService {
       throw new BadRequestError('Email address already in use.');
     }
 
+    const hashedPassword = await hash(password, 8);
+
     const user = this.usersRepository.create({
       name,
       email,
-      password,
+      password: hashedPassword,
     });
 
     return user;

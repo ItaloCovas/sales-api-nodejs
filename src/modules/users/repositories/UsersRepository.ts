@@ -3,7 +3,7 @@ import { Repository } from 'typeorm';
 import { CreateUserDTO, IUsersRepository } from '../interfaces';
 import User from '../typeorm/entities/User';
 
-export class ProductsRepository implements IUsersRepository {
+export class UsersRepository implements IUsersRepository {
   private repository: Repository<User>;
 
   constructor() {

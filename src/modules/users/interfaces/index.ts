@@ -21,6 +21,15 @@ export interface ShowUserDTO {
   id: string;
 }
 
+export interface CreateLoginDTO {
+  email: string;
+  password: string;
+}
+
+export interface ILoginResponse {
+  user: User;
+}
+
 export interface IUsersRepository {
   create({ name, email, password }: CreateUserDTO): Promise<User>;
   findAll(): Promise<Array<User>>;
