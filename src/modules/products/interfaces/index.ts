@@ -13,7 +13,7 @@ export interface UpdateProductDTO {
   amount: number;
 }
 
-export interface DeleteRoleDTO {
+export interface DeleteProductDTO {
   id: string;
 }
 

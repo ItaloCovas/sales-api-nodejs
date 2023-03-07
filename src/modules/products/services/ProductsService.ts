@@ -2,7 +2,7 @@ import { BadRequestError, NotFoundError } from '@shared/helpers/ApiError';
 import { injectable, inject } from 'tsyringe';
 import {
   CreateProductDTO,
-  DeleteRoleDTO,
+  DeleteProductDTO,
   IProductsRepository,
   ShowProductDTO,
   UpdateProductDTO,
@@ -15,7 +15,7 @@ export class ProductsService {
     private productsRepository: IProductsRepository,
   ) {}
 
-  public async createProductService({ name, price, amount }: CreateProductDTO) {
+  async createProductService({ name, price, amount }: CreateProductDTO) {
     const productExists = await this.productsRepository.findByName(name);
 
     if (productExists) {
@@ -29,15 +29,13 @@ export class ProductsService {
     });
   }
 
-  public async listProductsService(): Promise<Array<Product>> {
+  async listProductsService(): Promise<Array<Product>> {
     const products = await this.productsRepository.findAll();
 
     return products;
   }
 
-  public async showProductService({
-    id,
-  }: ShowProductDTO): Promise<Product | null> {
+  async showProductService({ id }: ShowProductDTO): Promise<Product | null> {
     const product = await this.productsRepository.findById(id);
 
     if (!product) {
@@ -47,7 +45,7 @@ export class ProductsService {
     return product;
   }
 
-  public async updateProductService({
+  async updateProductService({
     id,
     name,
     price,
@@ -74,7 +72,7 @@ export class ProductsService {
     return updatedProduct;
   }
 
-  public async deleteProductService({ id }: DeleteRoleDTO) {
+  async deleteProductService({ id }: DeleteProductDTO) {
     const product = await this.productsRepository.findById(id);
 
     if (!product) {

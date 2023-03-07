@@ -14,20 +14,16 @@ export class ProductsRepository implements IProductsRepository {
     this.repository = dataSource.getRepository(Product);
   }
 
-  public async create({
-    name,
-    price,
-    amount,
-  }: CreateProductDTO): Promise<Product> {
+  async create({ name, price, amount }: CreateProductDTO): Promise<Product> {
     const product = this.repository.create({ name, price, amount });
     return await this.repository.save(product);
   }
 
-  public async findAll(): Promise<Array<Product>> {
+  async findAll(): Promise<Array<Product>> {
     return this.repository.find();
   }
 
-  public async findByName(name: string): Promise<Product | null> {
+  async findByName(name: string): Promise<Product | null> {
     const product = await this.repository.findOne({
       where: {
         name,
@@ -37,13 +33,13 @@ export class ProductsRepository implements IProductsRepository {
     return product;
   }
 
-  public async findById(id: string): Promise<Product | null> {
+  async findById(id: string): Promise<Product | null> {
     const product = this.repository.findOne({ where: { id } });
 
     return product;
   }
 
-  public async update(product: Product): Promise<Product | null> {
+  async update(product: Product): Promise<Product | null> {
     return this.repository.save(product);
   }
 
