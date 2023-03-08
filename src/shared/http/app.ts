@@ -4,7 +4,7 @@ import cors from 'cors';
 import { errors } from 'celebrate';
 
 import routes from './routes';
-import { errorMiddleware } from '@middlewares/errorMiddleware';
+import { errorMiddleware } from '@shared/middlewares/errorMiddleware';
 import '@shared/container';
 
 const app = express();

@@ -28,6 +28,7 @@ export interface CreateLoginDTO {
 
 export interface ILoginResponse {
   user: User;
+  token: string;
 }
 
 export interface IUsersRepository {

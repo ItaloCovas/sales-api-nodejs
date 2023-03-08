@@ -2,11 +2,12 @@ import { Router } from 'express';
 import { container } from 'tsyringe';
 import { celebrate, Joi, Segments } from 'celebrate';
 import { UserController } from '../controllers/UserController';
+import { authMiddleware } from '@shared/middlewares/authMiddleware';
 
 const usersRouter = Router();
 const userController = container.resolve(UserController);
 
-usersRouter.get('/', userController.index);
+usersRouter.get('/', authMiddleware, userController.index);
 
 usersRouter.post(
   '/',

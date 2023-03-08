@@ -1,8 +1,13 @@
 import { BadRequestError } from '@shared/helpers/ApiError';
 import { compare } from 'bcryptjs';
+import jwtConfig from '@config/auth';
+import { Secret, sign } from 'jsonwebtoken';
 import { injectable, inject } from 'tsyringe';
-import { CreateLoginDTO, IUsersRepository } from '../interfaces';
-import User from '../typeorm/entities/User';
+import {
+  CreateLoginDTO,
+  ILoginResponse,
+  IUsersRepository,
+} from '../interfaces';
 
 @injectable()
 export class LoginService {
@@ -11,7 +16,10 @@ export class LoginService {
     private usersRepository: IUsersRepository,
   ) {}
 
-  async createLoginService({ email, password }: CreateLoginDTO): Promise<User> {
+  async createLoginService({
+    email,
+    password,
+  }: CreateLoginDTO): Promise<ILoginResponse> {
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
@@ -24,6 +32,14 @@ export class LoginService {
       throw new BadRequestError('Incorrect email/password.');
     }
 
-    return user;
+    const token = sign({}, jwtConfig.jwt.secret as Secret, {
+      subject: user.id,
+      expiresIn: jwtConfig.jwt.expiresIn,
+    });
+
+    return {
+      user,
+      token,
+    };
   }
 }
