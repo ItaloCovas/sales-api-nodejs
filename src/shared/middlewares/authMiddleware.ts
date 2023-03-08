@@ -25,6 +25,12 @@ export const authMiddleware = (
   try {
     const decodedToken = verify(token, jwtConfig.jwt.secret as Secret);
 
+    const { sub } = decodedToken;
+
+    request.user = {
+      id: sub,
+    };
+
     return next();
   } catch (err) {
     throw new UnauthorizedError('Token is expired.');
