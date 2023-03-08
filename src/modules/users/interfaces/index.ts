@@ -31,10 +31,16 @@ export interface ILoginResponse {
   token: string;
 }
 
+export interface UpdateUserAvatarDTO {
+  userId: string;
+  avatarFilename: string;
+}
+
 export interface IUsersRepository {
   create({ name, email, password }: CreateUserDTO): Promise<User>;
   findAll(): Promise<Array<User>>;
   findByName(name: string): Promise<User | null>;
   findByEmail(email: string): Promise<User | null>;
   findById(id: string): Promise<User | null>;
+  update(user: User): Promise<User | null>;
 }

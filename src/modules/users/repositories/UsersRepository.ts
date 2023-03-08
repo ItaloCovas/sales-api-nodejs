@@ -40,9 +40,9 @@ export class UsersRepository implements IUsersRepository {
     return user;
   }
 
-  //  async update(product: Product): Promise<Product | null> {
-  //   return this.repository.save(product);
-  // }
+  async update(user: User): Promise<User | null> {
+    return this.repository.save(user);
+  }
 
   // async delete(product: Product): Promise<void> {
   //   await this.repository.remove(product);
