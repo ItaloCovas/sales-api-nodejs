@@ -32,8 +32,8 @@ export interface ILoginResponse {
 }
 
 export interface UpdateUserAvatarDTO {
-  userId: string;
-  avatarFilename: string;
+  userId: string | (() => string) | undefined;
+  avatarFilename: string | undefined;
 }
 
 export interface IUsersRepository {

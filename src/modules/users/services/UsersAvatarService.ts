@@ -16,7 +16,7 @@ export class UsersAvatarService {
     userId,
     avatarFilename,
   }: UpdateUserAvatarDTO) {
-    const user = await this.usersRepository.findById(userId);
+    const user = await this.usersRepository.findById(userId as string);
 
     if (!user) {
       throw new NotFoundError('User not found.');
@@ -31,7 +31,7 @@ export class UsersAvatarService {
       }
     }
 
-    user.avatar = avatarFilename;
+    user.avatar = avatarFilename as string;
 
     await this.usersRepository.update(user);
 
