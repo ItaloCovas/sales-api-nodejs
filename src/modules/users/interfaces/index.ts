@@ -1,3 +1,4 @@
+import RefreshToken from '../typeorm/entities/RefreshToken';
 import User from '../typeorm/entities/User';
 
 export interface CreateUserDTO {
@@ -28,12 +29,20 @@ export interface CreateLoginDTO {
 
 export interface ILoginResponse {
   user: User;
-  token: string;
+  accessToken: string;
+  refreshToken: string;
 }
 
 export interface UpdateUserAvatarDTO {
   userId: string | (() => string) | undefined;
   avatarFilename: string | undefined;
+}
+
+export interface CreateRefreshTokenDTO {
+  userId: string;
+  token: string;
+  expires: Date;
+  valid: boolean;
 }
 
 export interface IUsersRepository {
@@ -43,4 +52,15 @@ export interface IUsersRepository {
   findByEmail(email: string): Promise<User | null>;
   findById(id: string): Promise<User | null>;
   update(user: User): Promise<User | null>;
+}
+
+export interface IRefreshTokenRepository {
+  create({
+    expires,
+    token,
+    userId,
+    valid,
+  }: CreateRefreshTokenDTO): Promise<RefreshToken>;
+  findByToken(token: string): Promise<RefreshToken | null>;
+  invalidate(refresh_token: RefreshToken): Promise<void>;
 }

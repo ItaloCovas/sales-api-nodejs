@@ -6,6 +6,7 @@ import { injectable, inject } from 'tsyringe';
 import {
   CreateLoginDTO,
   ILoginResponse,
+  IRefreshTokenRepository,
   IUsersRepository,
 } from '../interfaces';
 
@@ -14,6 +15,8 @@ export class LoginService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
+    @inject('RefreshTokensRepository')
+    private refreshTokenRepository: IRefreshTokenRepository,
   ) {}
 
   async createLoginService({
@@ -32,14 +35,31 @@ export class LoginService {
       throw new BadRequestError('Incorrect email/password.');
     }
 
-    const token = sign({}, jwtConfig.jwt.secret as Secret, {
+    const accessToken = sign({}, jwtConfig.jwt.secret as Secret, {
       subject: user.id,
       expiresIn: jwtConfig.jwt.expiresIn,
     });
 
+    const expires = new Date(
+      Date.now() + (jwtConfig.refreshToken.duration as string),
+    );
+
+    const refreshToken = sign({}, jwtConfig.refreshToken.secret as Secret, {
+      subject: user.id,
+      expiresIn: jwtConfig.refreshToken.expiresIn,
+    });
+
+    await this.refreshTokenRepository.create({
+      token: refreshToken,
+      expires,
+      userId: user.id,
+      valid: true,
+    });
+
     return {
       user,
-      token,
+      accessToken,
+      refreshToken,
     };
   }
 }

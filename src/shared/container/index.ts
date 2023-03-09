@@ -3,10 +3,14 @@ import { IProductsRepository } from '@modules/products/interfaces';
 import { ProductsRepository } from '@modules/products/repositories/ProductsRepository';
 import { UsersRepository } from '@modules/users/repositories/UsersRepository';
 import { ProductController } from '@modules/products/controllers/ProductController';
-import { IUsersRepository } from '@modules/users/interfaces';
+import {
+  IRefreshTokenRepository,
+  IUsersRepository,
+} from '@modules/users/interfaces';
 import { UserController } from '@modules/users/controllers/UserController';
 import { LoginController } from '@modules/users/controllers/LoginController';
 import { UserAvatarController } from '@modules/users/controllers/UserAvatarController';
+import { RefreshTokensRepository } from '@modules/users/repositories/RefreshTokensRepository';
 
 container.registerSingleton<IProductsRepository>(
   'ProductsRepository',
@@ -16,6 +20,11 @@ container.registerSingleton<IProductsRepository>(
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository,
+);
+
+container.registerSingleton<IRefreshTokenRepository>(
+  'RefreshTokensRepository',
+  RefreshTokensRepository,
 );
 
 container.registerSingleton('ProductController', ProductController);

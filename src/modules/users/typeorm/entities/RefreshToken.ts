@@ -21,7 +21,7 @@ class RefreshToken {
   user_id: string;
 
   @Column()
-  expires: string;
+  expires: Date;
 
   @CreateDateColumn()
   created_at: Date;
