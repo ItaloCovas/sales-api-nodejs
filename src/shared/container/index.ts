@@ -11,6 +11,7 @@ import { UserController } from '@modules/users/controllers/UserController';
 import { LoginController } from '@modules/users/controllers/LoginController';
 import { UserAvatarController } from '@modules/users/controllers/UserAvatarController';
 import { RefreshTokensRepository } from '@modules/users/repositories/RefreshTokensRepository';
+import { RefreshTokenController } from '@modules/users/controllers/RefreshTokenController';
 
 container.registerSingleton<IProductsRepository>(
   'ProductsRepository',
@@ -31,3 +32,4 @@ container.registerSingleton('ProductController', ProductController);
 container.registerSingleton('UserController', UserController);
 container.registerSingleton('LoginController', LoginController);
 container.registerSingleton('UserAvatarController', UserAvatarController);
+container.registerSingleton('RefreshTokenController', RefreshTokenController);

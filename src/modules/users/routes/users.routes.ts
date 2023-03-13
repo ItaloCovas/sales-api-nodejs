@@ -7,10 +7,13 @@ import uploadConfig from '@config/upload';
 import { UserController } from '../controllers/UserController';
 import { authMiddleware } from '@shared/middlewares/authMiddleware';
 import { UserAvatarController } from '../controllers/UserAvatarController';
+import { RefreshTokenController } from '../controllers/RefreshTokenController';
+import { addUserInfoToRequestMiddleware } from '@shared/middlewares/addUserInfoToRequestMiddleware';
 
 const usersRouter = Router();
 const userController = container.resolve(UserController);
 const userAvatarController = container.resolve(UserAvatarController);
+const refreshTokenController = container.resolve(RefreshTokenController);
 
 const upload = multer(uploadConfig);
 
@@ -24,6 +27,17 @@ usersRouter.post(
     },
   }),
   userController.create,
+);
+
+usersRouter.post(
+  '/refresh_token',
+  addUserInfoToRequestMiddleware,
+  celebrate({
+    [Segments.BODY]: {
+      refresh_token: Joi.string().required(),
+    },
+  }),
+  refreshTokenController.create,
 );
 
 usersRouter.use(authMiddleware);

@@ -40,9 +40,7 @@ export class LoginService {
       expiresIn: jwtConfig.jwt.expiresIn,
     });
 
-    const expires = new Date(
-      Date.now() + (jwtConfig.refreshToken.duration as string),
-    );
+    const expires = new Date(Date.now() + jwtConfig.refreshToken.duration);
 
     const refreshToken = sign({}, jwtConfig.refreshToken.secret as Secret, {
       subject: user.id,

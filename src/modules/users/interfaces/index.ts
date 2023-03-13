@@ -45,6 +45,17 @@ export interface CreateRefreshTokenDTO {
   valid: boolean;
 }
 
+export interface CreateAccessAndRefreshTokenDTO {
+  userId: string | (() => string) | undefined;
+  refresh_token: string;
+}
+
+export interface IRefreshTokenResponse {
+  user: User;
+  accessToken: string;
+  refreshToken: string;
+}
+
 export interface IUsersRepository {
   create({ name, email, password }: CreateUserDTO): Promise<User>;
   findAll(): Promise<Array<User>>;
