@@ -1,5 +1,6 @@
 import RefreshToken from '../typeorm/entities/RefreshToken';
 import User from '../typeorm/entities/User';
+import UserEmailToken from '../typeorm/entities/UserEmailToken';
 
 export interface CreateUserDTO {
   name: string;
@@ -74,4 +75,9 @@ export interface IRefreshTokenRepository {
   }: CreateRefreshTokenDTO): Promise<RefreshToken>;
   findByToken(token: string): Promise<RefreshToken | null>;
   invalidate(refresh_token: RefreshToken): Promise<void>;
+}
+
+export interface IUserEmailTokensRepository {
+  findByToken(token: string): Promise<UserEmailToken | null>;
+  generateEmailToken(user_id: string): Promise<UserEmailToken | null>;
 }
