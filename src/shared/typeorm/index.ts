@@ -5,6 +5,7 @@ import { DataSource } from 'typeorm';
 import { CreateProductsTable1677523254347 } from './migrations/1677523254347-CreateProductsTable';
 import { CreateUsers1678208821691 } from './migrations/1678208821691-CreateUsers';
 import { CreateRefreshToken1678371554283 } from './migrations/1678371554283-CreateRefreshToken';
+import { CreateUserEmailTokens1678821650422 } from './migrations/1678821650422-CreateUserEmailTokens';
 
 const dataSource = new DataSource({
   type: 'postgres',
@@ -18,6 +19,7 @@ const dataSource = new DataSource({
     CreateProductsTable1677523254347,
     CreateUsers1678208821691,
     CreateRefreshToken1678371554283,
+    CreateUserEmailTokens1678821650422,
   ],
 });
 
