@@ -51,6 +51,15 @@ export interface CreateAccessAndRefreshTokenDTO {
   refresh_token: string;
 }
 
+export interface SendForgotPasswordDTO {
+  email: string;
+}
+
+export interface ForgotPasswordDTO {
+  token: string;
+  password: string;
+}
+
 export interface IRefreshTokenResponse {
   user: User;
   accessToken: string;

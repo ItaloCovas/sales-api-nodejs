@@ -19,7 +19,7 @@ export class RefreshTokenService {
     private refreshTokenRepository: IRefreshTokenRepository,
   ) {}
 
-  async createRefreshTokenService({
+  async createRefreshToken({
     userId,
     refresh_token,
   }: CreateAccessAndRefreshTokenDTO): Promise<IRefreshTokenResponse> {

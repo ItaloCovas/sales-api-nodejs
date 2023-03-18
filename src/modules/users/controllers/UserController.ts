@@ -6,7 +6,7 @@ export class UserController {
   async index(request: Request, response: Response): Promise<Response> {
     const usersService = container.resolve(UsersService);
 
-    const users = await usersService.listUsersService();
+    const users = await usersService.listUsers();
 
     return response.status(200).json(users);
   }
@@ -16,7 +16,7 @@ export class UserController {
 
     const { name, email, password } = request.body;
 
-    const user = await usersService.createUserService({
+    const user = await usersService.createUser({
       name,
       email,
       password,

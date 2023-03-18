@@ -10,7 +10,7 @@ export class RefreshTokenController {
     const { refresh_token } = request.body;
 
     const { user, accessToken, refreshToken } =
-      await refreshTokenService.createRefreshTokenService({
+      await refreshTokenService.createRefreshToken({
         userId,
         refresh_token,
       });

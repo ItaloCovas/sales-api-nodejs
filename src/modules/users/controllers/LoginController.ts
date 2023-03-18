@@ -8,11 +8,10 @@ export class LoginController {
 
     const { email, password } = request.body;
 
-    const { user, accessToken, refreshToken } =
-      await loginService.createLoginService({
-        email,
-        password,
-      });
+    const { user, accessToken, refreshToken } = await loginService.createLogin({
+      email,
+      password,
+    });
 
     return response.json({
       user,

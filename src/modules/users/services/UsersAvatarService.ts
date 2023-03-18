@@ -12,10 +12,7 @@ export class UsersAvatarService {
     private usersRepository: IUsersRepository,
   ) {}
 
-  async updateUserAvatarService({
-    userId,
-    avatarFilename,
-  }: UpdateUserAvatarDTO) {
+  async updateUserAvatar({ userId, avatarFilename }: UpdateUserAvatarDTO) {
     const user = await this.usersRepository.findById(userId as string);
 
     if (!user) {

@@ -17,7 +17,7 @@ export class UsersService {
     private usersRepository: IUsersRepository,
   ) {}
 
-  async createUserService({ name, email, password }: CreateUserDTO) {
+  async createUser({ name, email, password }: CreateUserDTO) {
     const emailExists = await this.usersRepository.findByEmail(email);
 
     if (emailExists) {
@@ -35,7 +35,7 @@ export class UsersService {
     return user;
   }
 
-  async listUsersService(): Promise<Array<User>> {
+  async listUsers(): Promise<Array<User>> {
     const users = await this.usersRepository.findAll();
 
     return users;

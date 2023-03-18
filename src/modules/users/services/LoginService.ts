@@ -19,7 +19,7 @@ export class LoginService {
     private refreshTokenRepository: IRefreshTokenRepository,
   ) {}
 
-  async createLoginService({
+  async createLogin({
     email,
     password,
   }: CreateLoginDTO): Promise<ILoginResponse> {
