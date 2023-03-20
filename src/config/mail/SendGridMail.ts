@@ -1,27 +1,32 @@
 import sgMail from '@sendgrid/mail';
+import {
+  HandlebarsMailTemplate,
+  IParseMailTemplate,
+} from './HandlebarsMailTemplate';
 
-interface IMailTo {
+interface IMailContact {
   name?: string;
   email: string;
 }
 
 interface ISendMail {
-  to: IMailTo;
-  from?: IMailTo;
-  text: string;
+  to: IMailContact;
+  from?: IMailContact;
+  templateData: IParseMailTemplate;
+  subject: string;
 }
 
 export default class SendGridMail {
-  static async sendMail({ to, from, text }: ISendMail) {
+  static async sendMail({ to, from, templateData, subject }: ISendMail) {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
+
+    const mailTemplate = new HandlebarsMailTemplate();
 
     const msg = {
       to,
       from: from || { email: 'italocovas@gmail.com', name: 'API Vendas' },
-      subject: 'Recuperação de senha - API Vendas',
-      text,
-      name: 'API Vendas',
-      // html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+      subject,
+      html: await mailTemplate.parse(templateData),
     };
 
     try {

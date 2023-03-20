@@ -1,3 +1,4 @@
+import path from 'path';
 import { injectable, inject } from 'tsyringe';
 import { isAfter, addHours } from 'date-fns';
 import { hash } from 'bcryptjs';
@@ -32,11 +33,25 @@ export class UserEmailTokenService {
       user.id,
     );
 
+    const forgotPasswordTemplate = path.resolve(
+      __dirname,
+      '..',
+      'views',
+      'forgot_password.hbs',
+    );
+
     await SendGridMail.sendMail({
       to: {
         email,
       },
-      text: `Solicitação de redefinição de senha recebida: ${emailToken?.token}`,
+      subject: 'Recuperação de senha - API Vendas',
+      templateData: {
+        file: forgotPasswordTemplate,
+        variables: {
+          name: user.name,
+          link: `http://localhost:3000/reset-password?token=${emailToken?.token}`,
+        },
+      },
     });
   }
 
