@@ -16,4 +16,16 @@ passwordRouter.post(
   userEmailTokenController.create,
 );
 
+passwordRouter.post(
+  '/reset',
+  celebrate({
+    [Segments.BODY]: {
+      token: Joi.string().uuid().required(),
+      password: Joi.string().required(),
+      password_confirmation: Joi.string().required().valid(Joi.ref('password')),
+    },
+  }),
+  userEmailTokenController.update,
+);
+
 export default passwordRouter;

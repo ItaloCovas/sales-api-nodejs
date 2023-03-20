@@ -14,4 +14,17 @@ export class UserEmailTokenController {
 
     return response.status(204).json();
   }
+
+  async update(request: Request, response: Response): Promise<Response> {
+    const { password, token } = request.body;
+
+    const userEmailTokenService = container.resolve(UserEmailTokenService);
+
+    await userEmailTokenService.resetPassword({
+      password,
+      token,
+    });
+
+    return response.status(204).json();
+  }
 }

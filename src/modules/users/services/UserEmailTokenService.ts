@@ -8,6 +8,7 @@ import {
   ForgotPasswordDTO,
 } from '../interfaces';
 import { NotFoundError, UnauthorizedError } from '@shared/helpers/ApiError';
+import SendGridMail from '@config/mail/SendGridMail';
 
 @injectable()
 export class UserEmailTokenService {
@@ -30,6 +31,13 @@ export class UserEmailTokenService {
     const emailToken = await this.userEmailTokensRepository.generateEmailToken(
       user.id,
     );
+
+    await SendGridMail.sendMail({
+      to: {
+        email,
+      },
+      text: `Solicitação de redefinição de senha recebida: ${emailToken?.token}`,
+    });
   }
 
   async resetPassword({ token, password }: ForgotPasswordDTO) {
@@ -53,5 +61,7 @@ export class UserEmailTokenService {
     }
 
     user.password = await hash(password, 8);
+
+    await this.usersRepository.update(user);
   }
 }
