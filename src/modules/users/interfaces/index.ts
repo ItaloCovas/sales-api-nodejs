@@ -60,6 +60,18 @@ export interface ForgotPasswordDTO {
   password: string;
 }
 
+export interface ShowProfileDTO {
+  userId: string;
+}
+
+export interface UpdateProfileDTO {
+  userId: string;
+  name: string;
+  email: string;
+  password?: string;
+  oldPassword?: string;
+}
+
 export interface IRefreshTokenResponse {
   user: User;
   accessToken: string;
