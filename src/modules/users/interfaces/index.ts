@@ -69,7 +69,7 @@ export interface UpdateProfileDTO {
   name: string;
   email: string;
   password?: string;
-  oldPassword?: string;
+  old_password?: string;
 }
 
 export interface IRefreshTokenResponse {

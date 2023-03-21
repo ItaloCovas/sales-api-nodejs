@@ -58,7 +58,7 @@ export class UsersService {
     name,
     email,
     password,
-    oldPassword,
+    old_password,
   }: UpdateProfileDTO): Promise<User> {
     const user = await this.usersRepository.findById(userId);
 
@@ -72,12 +72,13 @@ export class UsersService {
       throw new BadRequestError('There is already one user with this email.');
     }
 
-    if (password && !oldPassword) {
+    if (password && !old_password) {
+      console.log(old_password);
       throw new BadRequestError('Old password is required.');
     }
 
-    if (password && oldPassword) {
-      const checkOldPassword = await compare(oldPassword, user.password);
+    if (password && old_password) {
+      const checkOldPassword = await compare(old_password, user.password);
 
       if (!checkOldPassword) {
         throw new BadRequestError('Old password does not match.');
