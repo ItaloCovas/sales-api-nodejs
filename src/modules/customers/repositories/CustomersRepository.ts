@@ -16,6 +16,8 @@ export class CustomersRepository implements ICustomersRepository {
   }
 
   async findAll(): Promise<Array<Customer>> {
+    const teste = this.repository.find();
+    console.log(teste);
     return this.repository.find();
   }
 
