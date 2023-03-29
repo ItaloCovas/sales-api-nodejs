@@ -19,7 +19,7 @@ export class UsersService {
     private usersRepository: IUsersRepository,
   ) {}
 
-  async createUser({ name, email, password }: CreateUserDTO) {
+  async createUser({ name, email, password }: CreateUserDTO): Promise<User> {
     const emailExists = await this.usersRepository.findByEmail(email);
 
     if (emailExists) {

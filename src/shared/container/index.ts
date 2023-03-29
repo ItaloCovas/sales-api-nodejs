@@ -16,6 +16,8 @@ import { RefreshTokenController } from '@modules/users/controllers/RefreshTokenC
 import { UserEmailTokensRepository } from '@modules/users/repositories/UserEmailTokensRepository';
 import { UserEmailTokenController } from '@modules/users/controllers/UserEmailTokenController';
 import { ProfileController } from '@modules/users/controllers/ProfileController';
+import { ICustomersRepository } from '@modules/customers/interfaces';
+import { CustomersRepository } from '@modules/customers/repositories/CustomersRepository';
 
 container.registerSingleton<IProductsRepository>(
   'ProductsRepository',
@@ -35,6 +37,11 @@ container.registerSingleton<IRefreshTokenRepository>(
 container.registerSingleton<IUserEmailTokensRepository>(
   'UserEmailTokensRepository',
   UserEmailTokensRepository,
+);
+
+container.registerSingleton<ICustomersRepository>(
+  'CustomersRepository',
+  CustomersRepository,
 );
 
 container.registerSingleton('ProductController', ProductController);
