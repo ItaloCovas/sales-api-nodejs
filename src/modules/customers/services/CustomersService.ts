@@ -16,13 +16,16 @@ export class CustomersService {
     private customersRepository: ICustomersRepository,
   ) {}
 
-  async listCustomers(): Promise<Array<Customer>> {
+  async listCustomersService(): Promise<Array<Customer>> {
     const customers = await this.customersRepository.findAll();
 
     return customers;
   }
 
-  async createCustomer({ name, email }: CreateCustomerDTO): Promise<Customer> {
+  async createCustomerService({
+    name,
+    email,
+  }: CreateCustomerDTO): Promise<Customer> {
     const emailExists = await this.customersRepository.findByEmail(email);
 
     if (emailExists) {
@@ -37,7 +40,9 @@ export class CustomersService {
     return customer;
   }
 
-  async showCustomer({ customerId }: ShowCustomerDTO): Promise<Customer> {
+  async showCustomerService({
+    customerId,
+  }: ShowCustomerDTO): Promise<Customer> {
     const customer = await this.customersRepository.findById(customerId);
 
     if (!customer) {
@@ -47,7 +52,7 @@ export class CustomersService {
     return customer;
   }
 
-  async updateCustomer({
+  async updateCustomerService({
     customerId,
     name,
     email,
@@ -76,7 +81,7 @@ export class CustomersService {
     return customer;
   }
 
-  async deleteCustomer({ customerId }: DeleteCustomerDTO) {
+  async deleteCustomerService({ customerId }: DeleteCustomerDTO) {
     const customer = await this.customersRepository.findById(customerId);
 
     if (!customer) {

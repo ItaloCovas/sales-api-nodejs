@@ -18,6 +18,7 @@ import { UserEmailTokenController } from '@modules/users/controllers/UserEmailTo
 import { ProfileController } from '@modules/users/controllers/ProfileController';
 import { ICustomersRepository } from '@modules/customers/interfaces';
 import { CustomersRepository } from '@modules/customers/repositories/CustomersRepository';
+import { CustomerController } from '@modules/customers/controllers/CustomerController';
 
 container.registerSingleton<IProductsRepository>(
   'ProductsRepository',
@@ -54,3 +55,4 @@ container.registerSingleton(
   UserEmailTokenController,
 );
 container.registerSingleton('ProfileController', ProfileController);
+container.registerSingleton('CustomerController', CustomerController);
