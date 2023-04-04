@@ -1,4 +1,5 @@
 import Customer from '@modules/customers/typeorm/entities/Customer';
+import Order from '@modules/orders/typeorm/entities/Order';
 import Product from '@modules/products/typeorm/entities/Product';
 import RefreshToken from '@modules/users/typeorm/entities/RefreshToken';
 import User from '@modules/users/typeorm/entities/User';
@@ -22,7 +23,7 @@ const dataSource = new DataSource({
   username: 'postgres',
   password: 'postgres',
   database: 'sales-api-node',
-  entities: [Product, User, RefreshToken, UserEmailToken, Customer],
+  entities: [Product, User, RefreshToken, UserEmailToken, Customer, Order],
   migrations: [
     CreateProductsTable1677523254347,
     CreateUsers1678208821691,

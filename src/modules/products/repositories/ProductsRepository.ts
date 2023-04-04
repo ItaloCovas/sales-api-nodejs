@@ -1,11 +1,12 @@
 import dataSource from '@shared/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import {
   CreateProductDTO,
   IProductsRepository,
   UpdateProductDTO,
 } from '../interfaces';
 import Product from '../typeorm/entities/Product';
+import { IProduct } from '@modules/orders/interfaces';
 
 export class ProductsRepository implements IProductsRepository {
   private repository: Repository<Product>;
@@ -21,6 +22,18 @@ export class ProductsRepository implements IProductsRepository {
 
   async findAll(): Promise<Array<Product>> {
     return this.repository.find();
+  }
+
+  async findAllByIds(products: Array<IProduct>): Promise<Array<Product>> {
+    const productIds = products.map(product => product.product_id);
+
+    const existentProducts = await this.repository.find({
+      where: {
+        id: In(productIds),
+      },
+    });
+
+    return existentProducts;
   }
 
   async findByName(name: string): Promise<Product | null> {

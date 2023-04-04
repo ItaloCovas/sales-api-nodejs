@@ -1,3 +1,4 @@
+import { IProduct } from '@modules/orders/interfaces';
 import Product from '../typeorm/entities/Product';
 
 export interface CreateProductDTO {
@@ -28,4 +29,5 @@ export interface IProductsRepository {
   findByName(name: string): Promise<Product | null>;
   update(product: Product): Promise<Product | null>;
   delete(product: Product): Promise<void>;
+  findAllByIds(products: Array<IProduct>): Promise<Array<Product>>;
 }
