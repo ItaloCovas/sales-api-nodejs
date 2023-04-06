@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
-import { authMiddleware } from '@shared/middlewares/authMiddleware';
+import { authMiddleware } from '@shared/http/middlewares/authMiddleware';
 import { container } from 'tsyringe';
 import { ProfileController } from '../controllers/ProfileController';
 

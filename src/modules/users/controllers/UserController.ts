@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import { instanceToInstance } from 'class-transformer';
 import { UsersService } from '../services/UsersService';
 
 export class UserController {
@@ -8,7 +9,7 @@ export class UserController {
 
     const users = await usersService.listUsers();
 
-    return response.status(200).json(users);
+    return response.status(200).json(instanceToInstance(users));
   }
 
   async create(request: Request, response: Response): Promise<Response> {
@@ -22,6 +23,6 @@ export class UserController {
       password,
     });
 
-    return response.status(201).json(user);
+    return response.status(201).json(instanceToInstance(user));
   }
 }

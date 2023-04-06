@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import { instanceToInstance } from 'class-transformer';
 import { UsersService } from '../services/UsersService';
 
 export class ProfileController {
@@ -10,7 +11,7 @@ export class ProfileController {
 
     const user = await usersService.showProfile({ userId });
 
-    return response.json(user);
+    return response.json(instanceToInstance(user));
   }
 
   async update(request: Request, response: Response): Promise<Response> {
@@ -27,6 +28,6 @@ export class ProfileController {
       old_password,
     });
 
-    return response.json(user);
+    return response.json(instanceToInstance(user));
   }
 }

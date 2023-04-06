@@ -15,6 +15,7 @@ import { AddCostumerIdToOrders1680201551447 } from './migrations/1680201551447-A
 import { CreateOrdersProducts1680202122414 } from './migrations/1680202122414-CreateOrdersProducts';
 import { AddProductIdToOrdersProducts1680204823794 } from './migrations/1680204823794-AddProductIdToOrdersProducts';
 import { AddOrderIdToOrdersProducts1680205703980 } from './migrations/1680205703980-AddOrderIdToOrdersProducts';
+import OrdersProducts from '@modules/orders/typeorm/entities/OrdersProducts';
 
 const dataSource = new DataSource({
   type: 'postgres',
@@ -23,7 +24,15 @@ const dataSource = new DataSource({
   username: 'postgres',
   password: 'postgres',
   database: 'sales-api-node',
-  entities: [Product, User, RefreshToken, UserEmailToken, Customer, Order],
+  entities: [
+    Product,
+    User,
+    RefreshToken,
+    UserEmailToken,
+    Customer,
+    Order,
+    OrdersProducts,
+  ],
   migrations: [
     CreateProductsTable1677523254347,
     CreateUsers1678208821691,

@@ -73,7 +73,6 @@ export class UsersService {
     }
 
     if (password && !old_password) {
-      console.log(old_password);
       throw new BadRequestError('Old password is required.');
     }
 

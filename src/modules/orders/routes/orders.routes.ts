@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 import { OrderController } from '../controllers/OrderController';
-import { authMiddleware } from '@shared/middlewares/authMiddleware';
+import { authMiddleware } from '@shared/http/middlewares/authMiddleware';
 import { container } from 'tsyringe';
 
 const ordersRouter = Router();

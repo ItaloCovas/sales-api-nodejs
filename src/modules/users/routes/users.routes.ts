@@ -5,10 +5,10 @@ import multer from 'multer';
 
 import uploadConfig from '@config/upload';
 import { UserController } from '../controllers/UserController';
-import { authMiddleware } from '@shared/middlewares/authMiddleware';
+import { authMiddleware } from '@shared/http/middlewares/authMiddleware';
 import { UserAvatarController } from '../controllers/UserAvatarController';
 import { RefreshTokenController } from '../controllers/RefreshTokenController';
-import { addUserInfoToRequestMiddleware } from '@shared/middlewares/addUserInfoToRequestMiddleware';
+import { addUserInfoToRequestMiddleware } from '@shared/http/middlewares/addUserInfoToRequestMiddleware';
 
 const usersRouter = Router();
 const userController = container.resolve(UserController);

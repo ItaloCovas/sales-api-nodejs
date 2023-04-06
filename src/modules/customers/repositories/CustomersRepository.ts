@@ -1,6 +1,11 @@
 import dataSource from '@shared/typeorm';
 import { Repository } from 'typeorm';
-import { CreateCustomerDTO, ICustomersRepository } from '../interfaces';
+import {
+  CostumersPaginationProperties,
+  CreateCustomerDTO,
+  ICustomersRepository,
+  PaginationParams,
+} from '../interfaces';
 import Customer from '../typeorm/entities/Customer';
 
 export class CustomersRepository implements ICustomersRepository {
@@ -15,9 +20,25 @@ export class CustomersRepository implements ICustomersRepository {
     return await this.repository.save(customer);
   }
 
-  async findAll(): Promise<Array<Customer>> {
-    const teste = this.repository.find();
-    return this.repository.find();
+  async findAll({
+    page,
+    skip,
+    take,
+  }: PaginationParams): Promise<CostumersPaginationProperties> {
+    const [costumers, count] = await this.repository
+      .createQueryBuilder()
+      .skip(skip)
+      .take(take)
+      .getManyAndCount();
+
+    const result = {
+      perPage: take,
+      total: count,
+      currentPage: page,
+      data: costumers,
+    };
+
+    return result;
   }
 
   async findByName(name: string): Promise<Customer | null> {

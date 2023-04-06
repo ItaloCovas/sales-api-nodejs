@@ -35,7 +35,7 @@
       "@config/*": ["src/config/*"],
       "@modules/*": ["src/modules/*"],
       "@shared/*": ["src/shared/*"],
-      "@middlewares/*": ["src/shared/middlewares/*"]
+      "@middlewares/*": ["src/shared/http/middlewares/*"]
     } /* Specify a set of entries that re-map imports to additional lookup locations. */,
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
     "typeRoots": [

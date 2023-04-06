@@ -19,9 +19,31 @@ export interface DeleteCustomerDTO {
   customerId: string;
 }
 
+export interface CostumersPaginationParams {
+  page: number;
+  limit: number;
+}
+
+export interface PaginationParams {
+  page: number;
+  skip: number;
+  take: number;
+}
+
+export interface CostumersPaginationProperties {
+  perPage: number;
+  total: number;
+  currentPage: number;
+  data: Array<Customer>;
+}
+
 export interface ICustomersRepository {
   create({ name, email }: CreateCustomerDTO): Promise<Customer>;
-  findAll(): Promise<Array<Customer>>;
+  findAll({
+    page,
+    skip,
+    take,
+  }: PaginationParams): Promise<CostumersPaginationProperties>;
   findByName(name: string): Promise<Customer | null>;
   findByEmail(email: string): Promise<Customer | null>;
   findById(id: string): Promise<Customer | null>;

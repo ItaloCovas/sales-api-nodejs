@@ -24,3 +24,9 @@ export class UnauthorizedError extends ApiError {
     super(message, 401);
   }
 }
+
+export class RateLimiterError extends ApiError {
+  constructor(message: string) {
+    super(message, 429);
+  }
+}

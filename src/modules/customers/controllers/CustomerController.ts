@@ -6,7 +6,19 @@ export class CustomerController {
   async index(request: Request, response: Response): Promise<Response> {
     const customersService = container.resolve(CustomersService);
 
-    const customers = await customersService.listCustomersService();
+    const page =
+      request.query.page && Number(request.query.page) > 0
+        ? Number(request.query.page)
+        : 1;
+    const limit =
+      request.query.limit && Number(request.query.limit)
+        ? Number(request.query.limit)
+        : 15;
+
+    const customers = await customersService.listCustomersService({
+      page,
+      limit,
+    });
 
     return response.status(200).json(customers);
   }

@@ -8,11 +8,14 @@ import {
   UpdateProductDTO,
 } from '../interfaces';
 import Product from '../typeorm/entities/Product';
+import { IRedisCache } from '@shared/cache/RedisCache';
 @injectable()
 export class ProductsService {
   constructor(
     @inject('ProductsRepository')
     private productsRepository: IProductsRepository,
+    @inject('RedisCache')
+    private redisCache: IRedisCache,
   ) {}
 
   async createProductService({ name, price, amount }: CreateProductDTO) {
@@ -22,6 +25,8 @@ export class ProductsService {
       throw new BadRequestError('This product already exists.');
     }
 
+    await this.redisCache.invalidate('sales-api-products-list');
+
     return this.productsRepository.create({
       name,
       price,
@@ -30,7 +35,15 @@ export class ProductsService {
   }
 
   async listProductsService(): Promise<Array<Product>> {
-    const products = await this.productsRepository.findAll();
+    let products = await this.redisCache.recover<Array<Product>>(
+      'sales-api-products-list',
+    );
+
+    if (!products) {
+      products = await this.productsRepository.findAll();
+
+      await this.redisCache.save('sales-api-products-list', products);
+    }
 
     return products;
   }
@@ -67,6 +80,8 @@ export class ProductsService {
     product.price = price;
     product.amount = amount;
 
+    await this.redisCache.invalidate('sales-api-products-list');
+
     const updatedProduct = await this.productsRepository.update(product);
 
     return updatedProduct;
@@ -78,6 +93,8 @@ export class ProductsService {
     if (!product) {
       throw new NotFoundError('Product not found.');
     }
+
+    await this.redisCache.invalidate('sales-api-products-list');
 
     this.productsRepository.delete(product);
   }

@@ -22,6 +22,7 @@ import { CustomerController } from '@modules/customers/controllers/CustomerContr
 import { OrdersRepository } from '@modules/orders/repositories/OrdersRepository';
 import { IOrdersRepository } from '@modules/orders/interfaces';
 import { OrderController } from '@modules/orders/controllers/OrderController';
+import { IRedisCache, RedisCache } from '@shared/cache/RedisCache';
 
 container.registerSingleton<IProductsRepository>(
   'ProductsRepository',
@@ -65,3 +66,4 @@ container.registerSingleton(
 container.registerSingleton('ProfileController', ProfileController);
 container.registerSingleton('CustomerController', CustomerController);
 container.registerSingleton('OrderController', OrderController);
+container.registerSingleton<IRedisCache>('RedisCache', RedisCache);

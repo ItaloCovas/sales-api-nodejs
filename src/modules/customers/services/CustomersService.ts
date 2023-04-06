@@ -1,6 +1,8 @@
 import { BadRequestError, NotFoundError } from '@shared/helpers/ApiError';
 import { injectable, inject } from 'tsyringe';
 import {
+  CostumersPaginationParams,
+  CostumersPaginationProperties,
   CreateCustomerDTO,
   DeleteCustomerDTO,
   ICustomersRepository,
@@ -16,10 +18,13 @@ export class CustomersService {
     private customersRepository: ICustomersRepository,
   ) {}
 
-  async listCustomersService(): Promise<Array<Customer>> {
-    const customers = await this.customersRepository.findAll();
-
-    return customers;
+  async listCustomersService({
+    page,
+    limit,
+  }: CostumersPaginationParams): Promise<CostumersPaginationProperties> {
+    const take = limit;
+    const skip = Number((page - 1) * take);
+    return this.customersRepository.findAll({ page, skip, take });
   }
 
   async createCustomerService({
