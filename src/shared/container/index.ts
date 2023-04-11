@@ -23,6 +23,12 @@ import { OrdersRepository } from '@modules/orders/repositories/OrdersRepository'
 import { IOrdersRepository } from '@modules/orders/interfaces';
 import { OrderController } from '@modules/orders/controllers/OrderController';
 import { IRedisCache, RedisCache } from '@shared/cache/RedisCache';
+import { DiskStorageProvider } from '@shared/providers/StorageProvider/DiskStorageProvider';
+import {
+  IDiskStorageProvider,
+  IS3StorageProvider,
+} from '@shared/providers/interfaces';
+import { S3StorageProvider } from '@shared/providers/StorageProvider/S3StorageProvider';
 
 container.registerSingleton<IProductsRepository>(
   'ProductsRepository',
@@ -52,6 +58,16 @@ container.registerSingleton<ICustomersRepository>(
 container.registerSingleton<IOrdersRepository>(
   'OrdersRepository',
   OrdersRepository,
+);
+
+container.registerSingleton<IDiskStorageProvider>(
+  'DiskStorageProvider',
+  DiskStorageProvider,
+);
+
+container.registerSingleton<IS3StorageProvider>(
+  'S3StorageProvider',
+  S3StorageProvider,
 );
 
 container.registerSingleton('ProductController', ProductController);

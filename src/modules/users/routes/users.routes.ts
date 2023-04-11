@@ -15,7 +15,7 @@ const userController = container.resolve(UserController);
 const userAvatarController = container.resolve(UserAvatarController);
 const refreshTokenController = container.resolve(RefreshTokenController);
 
-const upload = multer(uploadConfig);
+const upload = multer(uploadConfig.multer);
 
 usersRouter.post(
   '/',

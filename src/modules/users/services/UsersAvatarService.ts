@@ -4,12 +4,21 @@ import fs from 'fs';
 import { injectable, inject } from 'tsyringe';
 import { IUsersRepository, UpdateUserAvatarDTO } from '../interfaces';
 import uploadConfig from '@config/upload';
+import { DiskStorageProvider } from '@shared/providers/StorageProvider/DiskStorageProvider';
+import {
+  IDiskStorageProvider,
+  IS3StorageProvider,
+} from '@shared/providers/interfaces';
 
 @injectable()
 export class UsersAvatarService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
+    @inject('DiskStorageProvider')
+    private diskStorageProvider: IDiskStorageProvider,
+    @inject('S3StorageProvider')
+    private s3StorageProvider: IS3StorageProvider,
   ) {}
 
   async updateUserAvatar({ userId, avatarFilename }: UpdateUserAvatarDTO) {
@@ -19,16 +28,25 @@ export class UsersAvatarService {
       throw new NotFoundError('User not found.');
     }
 
-    if (user.avatar) {
-      const userAvatarFilePath = path.join(uploadConfig.directory, user.avatar);
-      const userAvatarFileExists = await fs.promises.stat(userAvatarFilePath);
-
-      if (userAvatarFileExists) {
-        await fs.promises.unlink(userAvatarFilePath);
+    if (uploadConfig.driver === 's3') {
+      if (user.avatar) {
+        await this.s3StorageProvider.deleteFile(user.avatar);
       }
-    }
 
-    user.avatar = avatarFilename as string;
+      const fileName = await this.s3StorageProvider.saveFile(
+        avatarFilename as string,
+      );
+      user.avatar = fileName;
+    } else {
+      if (user.avatar) {
+        await this.diskStorageProvider.deleteFile(user.avatar);
+      }
+
+      const fileName = await this.diskStorageProvider.saveFile(
+        avatarFilename as string,
+      );
+      user.avatar = fileName;
+    }
 
     await this.usersRepository.update(user);
 
