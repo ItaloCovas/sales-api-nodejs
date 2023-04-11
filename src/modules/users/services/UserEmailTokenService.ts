@@ -10,6 +10,8 @@ import {
 } from '../interfaces';
 import { NotFoundError, UnauthorizedError } from '@shared/helpers/ApiError';
 import SendGridMail from '@config/mail/SendGridMail';
+import SESMail from '@config/mail/SESMail';
+import mailConfig from '@config/mail/mail';
 
 @injectable()
 export class UserEmailTokenService {
@@ -39,6 +41,24 @@ export class UserEmailTokenService {
       'views',
       'forgot_password.hbs',
     );
+
+    if (mailConfig.driver === 'ses') {
+      await SESMail.sendMail({
+        to: {
+          address: user.email,
+          name: user.name,
+        },
+        subject: 'Recuperação de senha - API Vendas',
+        templateData: {
+          file: forgotPasswordTemplate,
+          variables: {
+            name: user.name,
+            link: `http://localhost:3000/reset-password?token=${emailToken?.token}`,
+          },
+        },
+      });
+      return;
+    }
 
     await SendGridMail.sendMail({
       to: {
