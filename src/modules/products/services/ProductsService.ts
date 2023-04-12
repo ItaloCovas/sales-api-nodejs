@@ -39,7 +39,7 @@ export class ProductsService {
       'sales-api-products-list',
     );
 
-    if (!products) {
+    if (!products || products.length === 0) {
       products = await this.productsRepository.findAll();
 
       await this.redisCache.save('sales-api-products-list', products);

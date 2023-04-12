@@ -1,6 +1,5 @@
 import { NotFoundError } from '@shared/helpers/ApiError';
-import path from 'path';
-import fs from 'fs';
+import aws from 'aws-sdk';
 import { injectable, inject } from 'tsyringe';
 import { IUsersRepository, UpdateUserAvatarDTO } from '../interfaces';
 import uploadConfig from '@config/upload';
@@ -33,10 +32,11 @@ export class UsersAvatarService {
         await this.s3StorageProvider.deleteFile(user.avatar);
       }
 
-      const fileName = await this.s3StorageProvider.saveFile(
+      const file = await this.s3StorageProvider.saveFile(
         avatarFilename as string,
       );
-      user.avatar = fileName;
+
+      user.avatar = file;
     } else {
       if (user.avatar) {
         await this.diskStorageProvider.deleteFile(user.avatar);

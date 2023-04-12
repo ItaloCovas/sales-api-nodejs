@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import aws, { S3 } from 'aws-sdk';
+import crypto from 'crypto';
 
 import uploadConfig from '@config/upload';
 import { IS3StorageProvider } from '../interfaces';
@@ -18,6 +19,9 @@ export class S3StorageProvider implements IS3StorageProvider {
   async saveFile(file: string): Promise<string> {
     const originalPath = path.resolve(uploadConfig.tmpFolder, file);
 
+    const fileHash = crypto.randomBytes(10).toString('hex');
+    const fileKey = `${file}-${fileHash}`;
+
     const fileType = path.extname(originalPath);
 
     if (!fileType) {
@@ -29,16 +33,24 @@ export class S3StorageProvider implements IS3StorageProvider {
     await this.client
       .putObject({
         Bucket: uploadConfig.config.aws.bucket,
-        Key: file,
+        Key: fileKey,
         ACL: 'private',
         Body: fileContent,
         ContentType: fileType,
       })
       .promise();
 
+    const params = {
+      Bucket: 'sales-api-s3-bucket',
+      Key: fileKey,
+      Expires: null,
+    };
+
+    const url = this.client.getSignedUrl('getObject', params);
+
     await fs.promises.unlink(originalPath);
 
-    return file;
+    return url;
   }
 
   async deleteFile(file: string): Promise<void> {

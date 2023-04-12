@@ -9,13 +9,9 @@ export interface IRedisCache {
 
 export class RedisCache implements IRedisCache {
   private client: RedisClient;
-  private connected = false;
 
   constructor() {
-    if (this.connected) {
-      this.client = new Redis(cacheConfig.config.redis);
-      this.connected = true;
-    }
+    this.client = new Redis(cacheConfig.config.redis);
   }
 
   public async save(key: string, value: any): Promise<void> {

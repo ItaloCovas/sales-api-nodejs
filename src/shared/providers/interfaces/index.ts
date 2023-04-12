@@ -6,6 +6,6 @@ export interface IDiskStorageProvider {
 }
 
 export interface IS3StorageProvider {
-  saveFile(file: string): Promise<string>;
+  saveFile(file: string): Promise<ISaveFilesProps>;
   deleteFile(file: string): Promise<void>;
 }
