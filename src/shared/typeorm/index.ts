@@ -1,10 +1,13 @@
+import { DataSource } from 'typeorm';
+
 import Customer from '@modules/customers/typeorm/entities/Customer';
 import Order from '@modules/orders/typeorm/entities/Order';
 import Product from '@modules/products/typeorm/entities/Product';
 import RefreshToken from '@modules/users/typeorm/entities/RefreshToken';
 import User from '@modules/users/typeorm/entities/User';
+import OrdersProducts from '@modules/orders/typeorm/entities/OrdersProducts';
 import UserEmailToken from '@modules/users/typeorm/entities/UserEmailToken';
-import { DataSource } from 'typeorm';
+
 import { CreateProductsTable1677523254347 } from './migrations/1677523254347-CreateProductsTable';
 import { CreateUsers1678208821691 } from './migrations/1678208821691-CreateUsers';
 import { CreateRefreshToken1678371554283 } from './migrations/1678371554283-CreateRefreshToken';
@@ -15,7 +18,6 @@ import { AddCostumerIdToOrders1680201551447 } from './migrations/1680201551447-A
 import { CreateOrdersProducts1680202122414 } from './migrations/1680202122414-CreateOrdersProducts';
 import { AddProductIdToOrdersProducts1680204823794 } from './migrations/1680204823794-AddProductIdToOrdersProducts';
 import { AddOrderIdToOrdersProducts1680205703980 } from './migrations/1680205703980-AddOrderIdToOrdersProducts';
-import OrdersProducts from '@modules/orders/typeorm/entities/OrdersProducts';
 
 const dataSource = new DataSource({
   type: 'postgres',
