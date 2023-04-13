@@ -1,4 +1,4 @@
-import { CreateRefreshTokenDTO } from '@modules/users/interfaces';
+import { CreateRefreshTokenDTO } from '@modules/users/domain/models/IUserOperations';
 import { IRefreshToken } from '../models/IRefreshToken';
 
 export interface IRefreshTokenRepository {

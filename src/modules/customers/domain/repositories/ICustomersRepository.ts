@@ -2,7 +2,7 @@ import {
   CreateCustomerDTO,
   PaginationParams,
   CustomersPaginationProperties,
-} from '@modules/customers/interfaces';
+} from '@modules/customers/domain/models/ICostumerOperations';
 import { ICustomer } from '../models/ICustomer';
 
 export interface ICustomersRepository {

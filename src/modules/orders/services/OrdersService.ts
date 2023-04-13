@@ -1,12 +1,12 @@
 import { BadRequestError, NotFoundError } from '@shared/helpers/ApiError';
 import { inject, injectable } from 'tsyringe';
-import { CreateOrderServiceDTO } from '../interfaces';
-import Order from '../infra/typeorm/entities/Order';
+import { CreateOrderServiceDTO } from '@modules/orders/domain/models/IOrderOperations';
 import Customer from '@modules/customers/infra/typeorm/entities/Customer';
 import Product from '@modules/products/infra/typeorm/entities/Product';
 import { ICustomersRepository } from '@modules/customers/domain/repositories/ICustomersRepository';
 import { IOrdersRepository } from '../domain/repositories/IOrdersRepository';
 import { IProductsRepository } from '@modules/products/domain/repositories/IProductsRepository';
+import { IOrder } from '../domain/models/IOrder';
 
 @injectable()
 export class OrdersService {
@@ -22,7 +22,7 @@ export class OrdersService {
   async createOrderService({
     customer_id,
     products,
-  }: CreateOrderServiceDTO): Promise<Order> {
+  }: CreateOrderServiceDTO): Promise<IOrder> {
     const customerExists = await this.customersRepository.findById(customer_id);
 
     if (customerExists) {
@@ -87,7 +87,7 @@ export class OrdersService {
     return order;
   }
 
-  async showOrderService(id: string): Promise<Order> {
+  async showOrderService(id: string): Promise<IOrder> {
     const order = await this.ordersRepository.findById(id);
 
     if (!order) {

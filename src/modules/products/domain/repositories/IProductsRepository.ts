@@ -1,4 +1,4 @@
-import { CreateProductDTO } from '@modules/products/interfaces';
+import { CreateProductDTO } from '@modules/products/domain/models/IProductOperations';
 import { IProduct } from '../models/IProduct';
 
 export interface IProductsRepository {

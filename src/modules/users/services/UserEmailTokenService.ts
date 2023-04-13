@@ -2,7 +2,10 @@ import path from 'path';
 import { injectable, inject } from 'tsyringe';
 import { isAfter, addHours } from 'date-fns';
 import { hash } from 'bcryptjs';
-import { SendForgotPasswordDTO, ForgotPasswordDTO } from '../interfaces';
+import {
+  SendForgotPasswordDTO,
+  ForgotPasswordDTO,
+} from '@modules/users/domain/models/IUserOperations';
 import { NotFoundError, UnauthorizedError } from '@shared/helpers/ApiError';
 import SendGridMail from '@config/mail/SendGridMail';
 import SESMail from '@config/mail/SESMail';

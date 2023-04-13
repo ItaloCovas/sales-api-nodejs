@@ -3,7 +3,10 @@ import { compare } from 'bcryptjs';
 import jwtConfig from '@config/auth';
 import { Secret, sign } from 'jsonwebtoken';
 import { injectable, inject } from 'tsyringe';
-import { CreateLoginDTO, ILoginResponse } from '../interfaces';
+import {
+  CreateLoginDTO,
+  ILoginResponse,
+} from '@modules/users/domain/models/IUserOperations';
 import { IUsersRepository } from '../domain/repositories/IUsersRepository';
 import { IRefreshTokenRepository } from '../domain/repositories/IRefreshTokensRepository';
 

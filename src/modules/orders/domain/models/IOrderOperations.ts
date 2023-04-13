@@ -1,8 +1,8 @@
-import Customer from '@modules/customers/infra/typeorm/entities/Customer';
+import { ICustomer } from '@modules/customers/domain/models/ICustomer';
 import { IProduct } from '@modules/products/domain/models/IProduct';
 
 export interface CreateOrderDTO {
-  customer: Customer;
+  customer: ICustomer;
   products: Array<Partial<IProduct>>;
 }
 

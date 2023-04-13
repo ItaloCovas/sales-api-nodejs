@@ -1,6 +1,6 @@
 import dataSource from '@shared/infra/typeorm';
 import { Repository } from 'typeorm';
-import { CreateOrderDTO } from '../../../interfaces';
+import { CreateOrderDTO } from '@modules/orders/domain/models/IOrderOperations';
 import Order from '../entities/Order';
 import { IOrdersRepository } from '@modules/orders/domain/repositories/IOrdersRepository';
 

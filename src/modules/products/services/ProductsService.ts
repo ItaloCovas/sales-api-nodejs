@@ -5,10 +5,10 @@ import {
   DeleteProductDTO,
   ShowProductDTO,
   UpdateProductDTO,
-} from '../interfaces';
-import Product from '../infra/typeorm/entities/Product';
+} from '@modules/products/domain/models/IProductOperations';
 import { IRedisCache } from '@shared/cache/RedisCache';
 import { IProductsRepository } from '../domain/repositories/IProductsRepository';
+import { IProduct } from '../domain/models/IProduct';
 @injectable()
 export class ProductsService {
   constructor(
@@ -34,8 +34,8 @@ export class ProductsService {
     });
   }
 
-  async listProductsService(): Promise<Array<Product>> {
-    let products = await this.redisCache.recover<Array<Product>>(
+  async listProductsService(): Promise<Array<IProduct>> {
+    let products = await this.redisCache.recover<Array<IProduct>>(
       'sales-api-products-list',
     );
 
@@ -48,7 +48,7 @@ export class ProductsService {
     return products;
   }
 
-  async showProductService({ id }: ShowProductDTO): Promise<Product | null> {
+  async showProductService({ id }: ShowProductDTO): Promise<IProduct | null> {
     const product = await this.productsRepository.findById(id);
 
     if (!product) {
@@ -63,7 +63,7 @@ export class ProductsService {
     name,
     price,
     amount,
-  }: UpdateProductDTO): Promise<Product | null> {
+  }: UpdateProductDTO): Promise<IProduct | null> {
     const product = await this.productsRepository.findById(id);
 
     if (!product) {

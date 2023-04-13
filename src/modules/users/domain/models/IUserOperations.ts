@@ -1,6 +1,4 @@
-import RefreshToken from '../infra/typeorm/entities/RefreshToken';
-import User from '../infra/typeorm/entities/User';
-import UserEmailToken from '../infra/typeorm/entities/UserEmailToken';
+import { IUser } from './IUser';
 
 export interface CreateUserDTO {
   name: string;
@@ -29,7 +27,7 @@ export interface CreateLoginDTO {
 }
 
 export interface ILoginResponse {
-  user: User;
+  user: IUser;
   accessToken: string;
   refreshToken: string;
 }
@@ -73,7 +71,7 @@ export interface UpdateProfileDTO {
 }
 
 export interface IRefreshTokenResponse {
-  user: User;
+  user: IUser;
   accessToken: string;
   refreshToken: string;
 }

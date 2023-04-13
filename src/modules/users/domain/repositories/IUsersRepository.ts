@@ -1,4 +1,4 @@
-import { CreateUserDTO } from '@modules/users/interfaces';
+import { CreateUserDTO } from '@modules/users/domain/models/IUserOperations';
 import { IUser } from '../models/IUser';
 
 export interface IUsersRepository {

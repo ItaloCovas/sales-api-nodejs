@@ -1,6 +1,9 @@
 import dataSource from '@shared/infra/typeorm';
 import { In, Repository } from 'typeorm';
-import { CreateProductDTO, UpdateProductDTO } from '../../../interfaces';
+import {
+  CreateProductDTO,
+  UpdateProductDTO,
+} from '@modules/products/domain/models/IProductOperations';
 import Product from '../entities/Product';
 import { IProduct } from '@modules/products/domain/models/IProduct';
 import { IProductsRepository } from '@modules/products/domain/repositories/IProductsRepository';

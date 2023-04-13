@@ -1,4 +1,4 @@
-import { CreateOrderDTO } from '@modules/orders/interfaces';
+import { CreateOrderDTO } from '@modules/orders/domain/models/IOrderOperations';
 import { IOrder } from '../models/IOrder';
 
 export interface IOrdersRepository {

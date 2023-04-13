@@ -5,7 +5,7 @@ import { NotFoundError, UnauthorizedError } from '@shared/helpers/ApiError';
 import {
   CreateAccessAndRefreshTokenDTO,
   IRefreshTokenResponse,
-} from '../interfaces';
+} from '@modules/users/domain/models/IUserOperations';
 import { Secret, sign } from 'jsonwebtoken';
 import { IUsersRepository } from '../domain/repositories/IUsersRepository';
 import { IRefreshTokenRepository } from '../domain/repositories/IRefreshTokensRepository';

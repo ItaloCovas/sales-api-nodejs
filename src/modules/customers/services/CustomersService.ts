@@ -7,9 +7,9 @@ import {
   DeleteCustomerDTO,
   ShowCustomerDTO,
   UpdateCustomerDTO,
-} from '../interfaces';
-import Customer from '../infra/typeorm/entities/Customer';
+} from '@modules/customers/domain/models/ICostumerOperations';
 import { ICustomersRepository } from '../domain/repositories/ICustomersRepository';
+import { ICustomer } from '../domain/models/ICustomer';
 
 @injectable()
 export class CustomersService {
@@ -30,7 +30,7 @@ export class CustomersService {
   async createCustomerService({
     name,
     email,
-  }: CreateCustomerDTO): Promise<Customer> {
+  }: CreateCustomerDTO): Promise<ICustomer> {
     const emailExists = await this.customersRepository.findByEmail(email);
 
     if (emailExists) {
@@ -47,7 +47,7 @@ export class CustomersService {
 
   async showCustomerService({
     customerId,
-  }: ShowCustomerDTO): Promise<Customer> {
+  }: ShowCustomerDTO): Promise<ICustomer> {
     const customer = await this.customersRepository.findById(customerId);
 
     if (!customer) {
@@ -61,7 +61,7 @@ export class CustomersService {
     customerId,
     name,
     email,
-  }: UpdateCustomerDTO): Promise<Customer> {
+  }: UpdateCustomerDTO): Promise<ICustomer> {
     const customer = await this.customersRepository.findById(customerId);
 
     if (!customer) {

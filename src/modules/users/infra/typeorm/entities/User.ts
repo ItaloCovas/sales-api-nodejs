@@ -5,6 +5,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import mailConfig from '@config/mail/mail';
 import { Exclude, Expose } from 'class-transformer';
 import { IUser } from '@modules/users/domain/models/IUser';
 
@@ -38,8 +39,11 @@ class User implements IUser {
     if (!this.avatar) {
       return null;
     }
-
-    return `${this.avatar}`;
+    if (mailConfig.driver === 'ses') {
+      return `${this.avatar}`;
+    } else {
+      return `${process.env.API_URL}/files/${this.avatar}`;
+    }
   }
 }
 

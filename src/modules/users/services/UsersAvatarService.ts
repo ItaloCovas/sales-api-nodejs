@@ -1,6 +1,6 @@
 import { NotFoundError } from '@shared/helpers/ApiError';
 import { injectable, inject } from 'tsyringe';
-import { UpdateUserAvatarDTO } from '../interfaces';
+import { UpdateUserAvatarDTO } from '@modules/users/domain/models/IUserOperations';
 import uploadConfig from '@config/upload';
 import {
   IDiskStorageProvider,

@@ -1,9 +1,13 @@
 import { BadRequestError, NotFoundError } from '@shared/helpers/ApiError';
 import { compare, hash } from 'bcryptjs';
 import { injectable, inject } from 'tsyringe';
-import { CreateUserDTO, ShowProfileDTO, UpdateProfileDTO } from '../interfaces';
-import User from '../infra/typeorm/entities/User';
+import {
+  CreateUserDTO,
+  ShowProfileDTO,
+  UpdateProfileDTO,
+} from '@modules/users/domain/models/IUserOperations';
 import { IUsersRepository } from '../domain/repositories/IUsersRepository';
+import { IUser } from '../domain/models/IUser';
 
 @injectable()
 export class UsersService {
@@ -12,7 +16,7 @@ export class UsersService {
     private usersRepository: IUsersRepository,
   ) {}
 
-  async createUser({ name, email, password }: CreateUserDTO): Promise<User> {
+  async createUser({ name, email, password }: CreateUserDTO): Promise<IUser> {
     const emailExists = await this.usersRepository.findByEmail(email);
 
     if (emailExists) {
@@ -30,13 +34,13 @@ export class UsersService {
     return user;
   }
 
-  async listUsers(): Promise<Array<User>> {
+  async listUsers(): Promise<Array<IUser>> {
     const users = await this.usersRepository.findAll();
 
     return users;
   }
 
-  async showProfile({ userId }: ShowProfileDTO): Promise<User> {
+  async showProfile({ userId }: ShowProfileDTO): Promise<IUser> {
     const user = await this.usersRepository.findById(userId);
 
     if (!user) {
@@ -52,7 +56,7 @@ export class UsersService {
     email,
     password,
     old_password,
-  }: UpdateProfileDTO): Promise<User> {
+  }: UpdateProfileDTO): Promise<IUser> {
     const user = await this.usersRepository.findById(userId);
 
     if (!user) {

@@ -1,6 +1,6 @@
 import dataSource from '@shared/infra/typeorm';
 import { Repository } from 'typeorm';
-import { CreateUserDTO } from '../../../interfaces';
+import { CreateUserDTO } from '@modules/users/domain/models/IUserOperations';
 import User from '../entities/User';
 import { IUsersRepository } from '@modules/users/domain/repositories/IUsersRepository';
 

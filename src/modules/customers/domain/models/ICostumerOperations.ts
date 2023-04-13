@@ -1,4 +1,4 @@
-import Customer from '../infra/typeorm/entities/Customer';
+import { ICustomer } from './ICustomer';
 
 export interface CreateCustomerDTO {
   name: string;
@@ -34,5 +34,5 @@ export interface CustomersPaginationProperties {
   perPage: number;
   total: number;
   currentPage: number;
-  data: Array<Customer>;
+  data: Array<ICustomer>;
 }
