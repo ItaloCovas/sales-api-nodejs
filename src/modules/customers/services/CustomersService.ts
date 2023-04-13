@@ -1,8 +1,6 @@
 import { BadRequestError, NotFoundError } from '@shared/helpers/ApiError';
 import { injectable, inject } from 'tsyringe';
 import {
-  CustomersPaginationParams,
-  CustomersPaginationProperties,
   CreateCustomerDTO,
   DeleteCustomerDTO,
   ShowCustomerDTO,
@@ -10,6 +8,7 @@ import {
 } from '@modules/customers/domain/models/ICostumerOperations';
 import { ICustomersRepository } from '../domain/repositories/ICustomersRepository';
 import { ICustomer } from '../domain/models/ICustomer';
+import { PaginationProperties, PaginationServices } from '@shared/interfaces';
 
 @injectable()
 export class CustomersService {
@@ -21,7 +20,7 @@ export class CustomersService {
   async listCustomersService({
     page,
     limit,
-  }: CustomersPaginationParams): Promise<CustomersPaginationProperties> {
+  }: PaginationServices): Promise<PaginationProperties> {
     const take = limit;
     const skip = Number((page - 1) * take);
     return this.customersRepository.findAll({ page, skip, take });

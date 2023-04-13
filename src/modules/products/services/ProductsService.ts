@@ -9,6 +9,7 @@ import {
 import { IRedisCache } from '@shared/cache/RedisCache';
 import { IProductsRepository } from '../domain/repositories/IProductsRepository';
 import { IProduct } from '../domain/models/IProduct';
+import { PaginationProperties, PaginationServices } from '@shared/interfaces';
 @injectable()
 export class ProductsService {
   constructor(
@@ -34,18 +35,25 @@ export class ProductsService {
     });
   }
 
-  async listProductsService(): Promise<Array<IProduct>> {
-    let products = await this.redisCache.recover<Array<IProduct>>(
+  async listProductsService({
+    page,
+    limit,
+  }: PaginationServices): Promise<PaginationProperties> {
+    const take = limit;
+    const skip = Number((page - 1) * take);
+    let products = await this.redisCache.recover<PaginationProperties>(
       'sales-api-products-list',
     );
 
-    if (!products || products.length === 0) {
-      products = await this.productsRepository.findAll();
+    console.log(products);
+
+    if (!products || products.data.length === 0) {
+      products = await this.productsRepository.findAll({ page, skip, take });
 
       await this.redisCache.save('sales-api-products-list', products);
     }
 
-    return products;
+    return products as PaginationProperties;
   }
 
   async showProductService({ id }: ShowProductDTO): Promise<IProduct | null> {

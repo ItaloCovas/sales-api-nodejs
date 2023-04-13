@@ -4,6 +4,7 @@ import { CreateProductDTO } from '@modules/products/domain/models/IProductOperat
 import Product from '../entities/Product';
 import { IProduct } from '@modules/products/domain/models/IProduct';
 import { IProductsRepository } from '@modules/products/domain/repositories/IProductsRepository';
+import { PaginationParams, PaginationProperties } from '@shared/interfaces';
 
 export class ProductsRepository implements IProductsRepository {
   private repository: Repository<Product>;
@@ -17,8 +18,25 @@ export class ProductsRepository implements IProductsRepository {
     return await this.repository.save(product);
   }
 
-  async findAll(): Promise<Array<Product>> {
-    return this.repository.find();
+  async findAll({
+    page,
+    skip,
+    take,
+  }: PaginationParams): Promise<PaginationProperties> {
+    const [products, count] = await this.repository
+      .createQueryBuilder()
+      .skip(skip)
+      .take(take)
+      .getManyAndCount();
+
+    const result = {
+      perPage: take,
+      total: count,
+      currentPage: page,
+      data: products,
+    };
+
+    return result;
   }
 
   async findAllByIds(products: Array<IProduct>): Promise<Array<Product>> {
