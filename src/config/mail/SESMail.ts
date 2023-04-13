@@ -35,7 +35,7 @@ export default class SASMail {
 
     const { email, name } = mailConfig.defaults.from;
 
-    const msg = await transporter.sendMail({
+    await transporter.sendMail({
       from: {
         address: from?.address || email,
         name: from?.name || name,

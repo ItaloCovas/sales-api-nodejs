@@ -21,7 +21,7 @@ export class UserEmailTokensRepository implements IUserEmailTokensRepository {
   }
 
   async generateEmailToken(user_id: string): Promise<UserEmailToken | null> {
-    const userToken = await this.repository.create({
+    const userToken = this.repository.create({
       user_id,
     });
 
