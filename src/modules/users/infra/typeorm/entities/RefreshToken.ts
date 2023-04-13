@@ -1,3 +1,4 @@
+import { IRefreshToken } from '@modules/users/domain/models/IRefreshToken';
 import {
   Column,
   CreateDateColumn,
@@ -7,7 +8,7 @@ import {
 } from 'typeorm';
 
 @Entity('refresh_tokens')
-class RefreshToken {
+class RefreshToken implements IRefreshToken {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
