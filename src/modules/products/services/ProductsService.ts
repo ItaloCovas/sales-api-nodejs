@@ -3,12 +3,12 @@ import { injectable, inject } from 'tsyringe';
 import {
   CreateProductDTO,
   DeleteProductDTO,
-  IProductsRepository,
   ShowProductDTO,
   UpdateProductDTO,
 } from '../interfaces';
 import Product from '../infra/typeorm/entities/Product';
 import { IRedisCache } from '@shared/cache/RedisCache';
+import { IProductsRepository } from '../domain/repositories/IProductsRepository';
 @injectable()
 export class ProductsService {
   constructor(

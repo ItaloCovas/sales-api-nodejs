@@ -3,12 +3,9 @@ import { compare } from 'bcryptjs';
 import jwtConfig from '@config/auth';
 import { Secret, sign } from 'jsonwebtoken';
 import { injectable, inject } from 'tsyringe';
-import {
-  CreateLoginDTO,
-  ILoginResponse,
-  IRefreshTokenRepository,
-  IUsersRepository,
-} from '../interfaces';
+import { CreateLoginDTO, ILoginResponse } from '../interfaces';
+import { IUsersRepository } from '../domain/repositories/IUsersRepository';
+import { IRefreshTokenRepository } from '../domain/repositories/IRefreshTokensRepository';
 
 @injectable()
 export class LoginService {

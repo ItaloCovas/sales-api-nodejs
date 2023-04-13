@@ -1,16 +1,9 @@
 import { BadRequestError, NotFoundError } from '@shared/helpers/ApiError';
 import { compare, hash } from 'bcryptjs';
 import { injectable, inject } from 'tsyringe';
-import {
-  CreateUserDTO,
-  ShowUserDTO,
-  DeleteUserDTO,
-  UpdateUserDTO,
-  IUsersRepository,
-  ShowProfileDTO,
-  UpdateProfileDTO,
-} from '../interfaces';
+import { CreateUserDTO, ShowProfileDTO, UpdateProfileDTO } from '../interfaces';
 import User from '../infra/typeorm/entities/User';
+import { IUsersRepository } from '../domain/repositories/IUsersRepository';
 
 @injectable()
 export class UsersService {

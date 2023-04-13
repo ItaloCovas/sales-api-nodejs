@@ -13,5 +13,5 @@ export interface IUser {
 
   updated_at: Date;
 
-  avatar_url?: string;
+  getAvatarUrl(): string | null;
 }

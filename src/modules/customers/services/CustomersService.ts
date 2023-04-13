@@ -1,15 +1,15 @@
 import { BadRequestError, NotFoundError } from '@shared/helpers/ApiError';
 import { injectable, inject } from 'tsyringe';
 import {
-  CostumersPaginationParams,
-  CostumersPaginationProperties,
+  CustomersPaginationParams,
+  CustomersPaginationProperties,
   CreateCustomerDTO,
   DeleteCustomerDTO,
-  ICustomersRepository,
   ShowCustomerDTO,
   UpdateCustomerDTO,
 } from '../interfaces';
 import Customer from '../infra/typeorm/entities/Customer';
+import { ICustomersRepository } from '../domain/repositories/ICustomersRepository';
 
 @injectable()
 export class CustomersService {
@@ -21,7 +21,7 @@ export class CustomersService {
   async listCustomersService({
     page,
     limit,
-  }: CostumersPaginationParams): Promise<CostumersPaginationProperties> {
+  }: CustomersPaginationParams): Promise<CustomersPaginationProperties> {
     const take = limit;
     const skip = Number((page - 1) * take);
     return this.customersRepository.findAll({ page, skip, take });

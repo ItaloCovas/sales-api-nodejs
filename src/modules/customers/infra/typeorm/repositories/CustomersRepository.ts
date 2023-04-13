@@ -1,12 +1,12 @@
 import dataSource from '@shared/infra/typeorm';
 import { Repository } from 'typeorm';
 import {
-  CostumersPaginationProperties,
+  CustomersPaginationProperties,
   CreateCustomerDTO,
-  ICustomersRepository,
   PaginationParams,
-} from '../interfaces';
-import Customer from '../infra/typeorm/entities/Customer';
+} from '../../../interfaces';
+import Customer from '../../../infra/typeorm/entities/Customer';
+import { ICustomersRepository } from '../../../domain/repositories/ICustomersRepository';
 
 export class CustomersRepository implements ICustomersRepository {
   private repository: Repository<Customer>;
@@ -24,7 +24,7 @@ export class CustomersRepository implements ICustomersRepository {
     page,
     skip,
     take,
-  }: PaginationParams): Promise<CostumersPaginationProperties> {
+  }: PaginationParams): Promise<CustomersPaginationProperties> {
     const [costumers, count] = await this.repository
       .createQueryBuilder()
       .skip(skip)

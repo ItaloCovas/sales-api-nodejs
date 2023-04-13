@@ -2,16 +2,13 @@ import path from 'path';
 import { injectable, inject } from 'tsyringe';
 import { isAfter, addHours } from 'date-fns';
 import { hash } from 'bcryptjs';
-import {
-  IUsersRepository,
-  IUserEmailTokensRepository,
-  SendForgotPasswordDTO,
-  ForgotPasswordDTO,
-} from '../interfaces';
+import { SendForgotPasswordDTO, ForgotPasswordDTO } from '../interfaces';
 import { NotFoundError, UnauthorizedError } from '@shared/helpers/ApiError';
 import SendGridMail from '@config/mail/SendGridMail';
 import SESMail from '@config/mail/SESMail';
 import mailConfig from '@config/mail/mail';
+import { IUsersRepository } from '../domain/repositories/IUsersRepository';
+import { IUserEmailTokensRepository } from '../domain/repositories/IUserEmailTokensRepository';
 
 @injectable()
 export class UserEmailTokenService {

@@ -4,11 +4,11 @@ import jwtConfig from '@config/auth';
 import { NotFoundError, UnauthorizedError } from '@shared/helpers/ApiError';
 import {
   CreateAccessAndRefreshTokenDTO,
-  IRefreshTokenRepository,
   IRefreshTokenResponse,
-  IUsersRepository,
 } from '../interfaces';
 import { Secret, sign } from 'jsonwebtoken';
+import { IUsersRepository } from '../domain/repositories/IUsersRepository';
+import { IRefreshTokenRepository } from '../domain/repositories/IRefreshTokensRepository';
 
 @injectable()
 export class RefreshTokenService {

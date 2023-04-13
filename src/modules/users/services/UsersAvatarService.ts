@@ -1,11 +1,12 @@
 import { NotFoundError } from '@shared/helpers/ApiError';
 import { injectable, inject } from 'tsyringe';
-import { IUsersRepository, UpdateUserAvatarDTO } from '../interfaces';
+import { UpdateUserAvatarDTO } from '../interfaces';
 import uploadConfig from '@config/upload';
 import {
   IDiskStorageProvider,
   IS3StorageProvider,
 } from '@shared/providers/interfaces';
+import { IUsersRepository } from '../domain/repositories/IUsersRepository';
 
 @injectable()
 export class UsersAvatarService {

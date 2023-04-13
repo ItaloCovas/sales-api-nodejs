@@ -1,7 +1,8 @@
 import dataSource from '@shared/infra/typeorm';
 import { Repository } from 'typeorm';
-import { CreateOrderDTO, IOrdersRepository } from '../interfaces';
-import Order from '../infra/typeorm/entities/Order';
+import { CreateOrderDTO } from '../../../interfaces';
+import Order from '../entities/Order';
+import { IOrdersRepository } from '@modules/orders/domain/repositories/IOrdersRepository';
 
 export class OrdersRepository implements IOrdersRepository {
   private repository: Repository<Order>;

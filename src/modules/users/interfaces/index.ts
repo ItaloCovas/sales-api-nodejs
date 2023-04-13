@@ -77,28 +77,3 @@ export interface IRefreshTokenResponse {
   accessToken: string;
   refreshToken: string;
 }
-
-export interface IUsersRepository {
-  create({ name, email, password }: CreateUserDTO): Promise<User>;
-  findAll(): Promise<Array<User>>;
-  findByName(name: string): Promise<User | null>;
-  findByEmail(email: string): Promise<User | null>;
-  findById(id: string): Promise<User | null>;
-  update(user: User): Promise<User | null>;
-}
-
-export interface IRefreshTokenRepository {
-  create({
-    expires,
-    token,
-    userId,
-    valid,
-  }: CreateRefreshTokenDTO): Promise<RefreshToken>;
-  findByToken(token: string): Promise<RefreshToken | null>;
-  invalidate(refresh_token: RefreshToken): Promise<void>;
-}
-
-export interface IUserEmailTokensRepository {
-  findByToken(token: string): Promise<UserEmailToken | null>;
-  generateEmailToken(user_id: string): Promise<UserEmailToken | null>;
-}

@@ -1,8 +1,9 @@
 import { NotFoundError } from '@shared/helpers/ApiError';
 import dataSource from '@shared/infra/typeorm';
 import { Repository } from 'typeorm';
-import { CreateRefreshTokenDTO, IRefreshTokenRepository } from '../interfaces';
-import RefreshToken from '../infra/typeorm/entities/RefreshToken';
+import { CreateRefreshTokenDTO } from '../../../interfaces';
+import RefreshToken from '../entities/RefreshToken';
+import { IRefreshTokenRepository } from '@modules/users/domain/repositories/IRefreshTokensRepository';
 
 export class RefreshTokensRepository implements IRefreshTokenRepository {
   private repository: Repository<RefreshToken>;
