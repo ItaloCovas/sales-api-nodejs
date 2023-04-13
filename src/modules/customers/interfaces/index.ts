@@ -1,4 +1,4 @@
-import Customer from '../typeorm/entities/Customer';
+import Customer from '../infra/typeorm/entities/Customer';
 
 export interface CreateCustomerDTO {
   name: string;

@@ -1,5 +1,5 @@
-import Customer from '@modules/customers/typeorm/entities/Customer';
-import Order from '../typeorm/entities/Order';
+import Customer from '@modules/customers/infra/typeorm/entities/Customer';
+import Order from '../infra/typeorm/entities/Order';
 
 export interface IProduct {
   product_id: string;

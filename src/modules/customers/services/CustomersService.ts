@@ -9,7 +9,7 @@ import {
   ShowCustomerDTO,
   UpdateCustomerDTO,
 } from '../interfaces';
-import Customer from '../typeorm/entities/Customer';
+import Customer from '../infra/typeorm/entities/Customer';
 
 @injectable()
 export class CustomersService {

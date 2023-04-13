@@ -2,26 +2,26 @@ import { container } from 'tsyringe';
 import { IProductsRepository } from '@modules/products/interfaces';
 import { ProductsRepository } from '@modules/products/repositories/ProductsRepository';
 import { UsersRepository } from '@modules/users/repositories/UsersRepository';
-import { ProductController } from '@modules/products/controllers/ProductController';
+import { ProductController } from '@modules/products/infra/http/controllers/ProductController';
 import {
   IRefreshTokenRepository,
   IUserEmailTokensRepository,
   IUsersRepository,
 } from '@modules/users/interfaces';
-import { UserController } from '@modules/users/controllers/UserController';
-import { LoginController } from '@modules/users/controllers/LoginController';
-import { UserAvatarController } from '@modules/users/controllers/UserAvatarController';
+import { UserController } from '@modules/users/infra/http/controllers/UserController';
+import { LoginController } from '@modules/users/infra/http/controllers/LoginController';
+import { UserAvatarController } from '@modules/users/infra/http/controllers/UserAvatarController';
 import { RefreshTokensRepository } from '@modules/users/repositories/RefreshTokensRepository';
-import { RefreshTokenController } from '@modules/users/controllers/RefreshTokenController';
+import { RefreshTokenController } from '@modules/users/infra/http/controllers/RefreshTokenController';
 import { UserEmailTokensRepository } from '@modules/users/repositories/UserEmailTokensRepository';
-import { UserEmailTokenController } from '@modules/users/controllers/UserEmailTokenController';
-import { ProfileController } from '@modules/users/controllers/ProfileController';
+import { UserEmailTokenController } from '@modules/users/infra/http/controllers/UserEmailTokenController';
+import { ProfileController } from '@modules/users/infra/http/controllers/ProfileController';
 import { ICustomersRepository } from '@modules/customers/interfaces';
 import { CustomersRepository } from '@modules/customers/repositories/CustomersRepository';
-import { CustomerController } from '@modules/customers/controllers/CustomerController';
+import { CustomerController } from '@modules/customers/infra/http/controllers/CustomerController';
 import { OrdersRepository } from '@modules/orders/repositories/OrdersRepository';
 import { IOrdersRepository } from '@modules/orders/interfaces';
-import { OrderController } from '@modules/orders/controllers/OrderController';
+import { OrderController } from '@modules/orders/infra/http/controllers/OrderController';
 import { IRedisCache, RedisCache } from '@shared/cache/RedisCache';
 import { DiskStorageProvider } from '@shared/providers/StorageProvider/DiskStorageProvider';
 import {

@@ -1,7 +1,7 @@
-import dataSource from '@shared/typeorm';
+import dataSource from '@shared/infra/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDTO, IUsersRepository } from '../interfaces';
-import User from '../typeorm/entities/User';
+import User from '../infra/typeorm/entities/User';
 
 export class UsersRepository implements IUsersRepository {
   private repository: Repository<User>;

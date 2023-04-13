@@ -1,11 +1,11 @@
 import { BadRequestError, NotFoundError } from '@shared/helpers/ApiError';
 import { inject, injectable } from 'tsyringe';
 import { CreateOrderDTO, IOrdersRepository } from '../interfaces';
-import Order from '../typeorm/entities/Order';
+import Order from '../infra/typeorm/entities/Order';
 import { ICustomersRepository } from '@modules/customers/interfaces';
 import { IProductsRepository } from '@modules/products/interfaces';
-import Customer from '@modules/customers/typeorm/entities/Customer';
-import Product from '@modules/products/typeorm/entities/Product';
+import Customer from '@modules/customers/infra/typeorm/entities/Customer';
+import Product from '@modules/products/infra/typeorm/entities/Product';
 
 @injectable()
 export class OrdersService {

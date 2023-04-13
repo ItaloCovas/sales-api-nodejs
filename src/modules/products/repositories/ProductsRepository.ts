@@ -1,11 +1,11 @@
-import dataSource from '@shared/typeorm';
+import dataSource from '@shared/infra/typeorm';
 import { In, Repository } from 'typeorm';
 import {
   CreateProductDTO,
   IProductsRepository,
   UpdateProductDTO,
 } from '../interfaces';
-import Product from '../typeorm/entities/Product';
+import Product from '../infra/typeorm/entities/Product';
 import { IProduct } from '@modules/orders/interfaces';
 
 export class ProductsRepository implements IProductsRepository {

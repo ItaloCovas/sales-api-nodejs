@@ -1,6 +1,6 @@
-import RefreshToken from '../typeorm/entities/RefreshToken';
-import User from '../typeorm/entities/User';
-import UserEmailToken from '../typeorm/entities/UserEmailToken';
+import RefreshToken from '../infra/typeorm/entities/RefreshToken';
+import User from '../infra/typeorm/entities/User';
+import UserEmailToken from '../infra/typeorm/entities/UserEmailToken';
 
 export interface CreateUserDTO {
   name: string;

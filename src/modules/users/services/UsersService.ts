@@ -10,7 +10,7 @@ import {
   ShowProfileDTO,
   UpdateProfileDTO,
 } from '../interfaces';
-import User from '../typeorm/entities/User';
+import User from '../infra/typeorm/entities/User';
 
 @injectable()
 export class UsersService {

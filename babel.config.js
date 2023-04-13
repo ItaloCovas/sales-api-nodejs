@@ -9,7 +9,7 @@ module.exports = {
         "@modules": "./src/modules",
         "@config": "./src/config",
         "@shared": "./src/shared",
-        "@middlewares": "./src/shared/http/middlewares"
+        "@middlewares": "./src/shared/infra/http/middlewares"
       }
     }],
     "babel-plugin-transform-typescript-metadata",

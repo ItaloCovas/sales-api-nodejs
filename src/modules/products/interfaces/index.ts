@@ -1,5 +1,5 @@
 import { IProduct } from '@modules/orders/interfaces';
-import Product from '../typeorm/entities/Product';
+import Product from '../infra/typeorm/entities/Product';
 
 export interface CreateProductDTO {
   name: string;

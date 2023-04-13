@@ -7,7 +7,7 @@ import {
   ShowProductDTO,
   UpdateProductDTO,
 } from '../interfaces';
-import Product from '../typeorm/entities/Product';
+import Product from '../infra/typeorm/entities/Product';
 import { IRedisCache } from '@shared/cache/RedisCache';
 @injectable()
 export class ProductsService {

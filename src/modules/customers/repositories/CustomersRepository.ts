@@ -1,4 +1,4 @@
-import dataSource from '@shared/typeorm';
+import dataSource from '@shared/infra/typeorm';
 import { Repository } from 'typeorm';
 import {
   CostumersPaginationProperties,
@@ -6,7 +6,7 @@ import {
   ICustomersRepository,
   PaginationParams,
 } from '../interfaces';
-import Customer from '../typeorm/entities/Customer';
+import Customer from '../infra/typeorm/entities/Customer';
 
 export class CustomersRepository implements ICustomersRepository {
   private repository: Repository<Customer>;

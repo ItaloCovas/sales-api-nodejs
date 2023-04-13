@@ -1,7 +1,7 @@
-import dataSource from '@shared/typeorm';
+import dataSource from '@shared/infra/typeorm';
 import { Repository } from 'typeorm';
 import { IUserEmailTokensRepository } from '../interfaces';
-import UserEmailToken from '../typeorm/entities/UserEmailToken';
+import UserEmailToken from '../infra/typeorm/entities/UserEmailToken';
 
 export class UserEmailTokensRepository implements IUserEmailTokensRepository {
   private repository: Repository<UserEmailToken>;

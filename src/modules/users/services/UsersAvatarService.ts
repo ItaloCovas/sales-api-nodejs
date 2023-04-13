@@ -1,9 +1,7 @@
 import { NotFoundError } from '@shared/helpers/ApiError';
-import aws from 'aws-sdk';
 import { injectable, inject } from 'tsyringe';
 import { IUsersRepository, UpdateUserAvatarDTO } from '../interfaces';
 import uploadConfig from '@config/upload';
-import { DiskStorageProvider } from '@shared/providers/StorageProvider/DiskStorageProvider';
 import {
   IDiskStorageProvider,
   IS3StorageProvider,
