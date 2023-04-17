@@ -28,6 +28,8 @@ import { S3StorageProvider } from '@shared/providers/StorageProvider/S3StoragePr
 import { IUsersRepository } from '@modules/users/domain/repositories/IUsersRepository';
 import { IRefreshTokenRepository } from '@modules/users/domain/repositories/IRefreshTokensRepository';
 import { IUserEmailTokensRepository } from '@modules/users/domain/repositories/IUserEmailTokensRepository';
+import { BcryptHashProvider } from '@modules/users/providers/HashProvider/implementations/BcryptHashProvider';
+import { IHashProvider } from '@modules/users/providers/HashProvider/models/IHashProvider';
 
 container.registerSingleton<IProductsRepository>(
   'ProductsRepository',
@@ -68,6 +70,8 @@ container.registerSingleton<IS3StorageProvider>(
   'S3StorageProvider',
   S3StorageProvider,
 );
+
+container.registerSingleton<IHashProvider>('HashProvider', BcryptHashProvider);
 
 container.registerSingleton('ProductController', ProductController);
 container.registerSingleton('UserController', UserController);

@@ -1,5 +1,4 @@
 import { BadRequestError, NotFoundError } from '@shared/helpers/ApiError';
-import { compare, hash } from 'bcryptjs';
 import { injectable, inject } from 'tsyringe';
 import {
   CreateUserDTO,
@@ -8,12 +7,15 @@ import {
 } from '@modules/users/domain/models/IUserOperations';
 import { IUsersRepository } from '../domain/repositories/IUsersRepository';
 import { IUser } from '../domain/models/IUser';
+import { IHashProvider } from '../providers/HashProvider/models/IHashProvider';
 
 @injectable()
 export class UsersService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
+    @inject('HashProvider')
+    private hashProvider: IHashProvider,
   ) {}
 
   async createUser({ name, email, password }: CreateUserDTO): Promise<IUser> {
@@ -23,7 +25,7 @@ export class UsersService {
       throw new BadRequestError('Email address already in use.');
     }
 
-    const hashedPassword = await hash(password, 8);
+    const hashedPassword = await this.hashProvider.generateHash(password);
 
     const user = this.usersRepository.create({
       name,
@@ -74,13 +76,16 @@ export class UsersService {
     }
 
     if (password && old_password) {
-      const checkOldPassword = await compare(old_password, user.password);
+      const checkOldPassword = await this.hashProvider.compareHash(
+        old_password,
+        user.password,
+      );
 
       if (!checkOldPassword) {
         throw new BadRequestError('Old password does not match.');
       }
 
-      user.password = await hash(password, 8);
+      user.password = await this.hashProvider.generateHash(password);
     }
 
     user.name = name;

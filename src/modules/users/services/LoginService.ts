@@ -1,5 +1,4 @@
 import { BadRequestError } from '@shared/helpers/ApiError';
-import { compare } from 'bcryptjs';
 import jwtConfig from '@config/auth';
 import { Secret, sign } from 'jsonwebtoken';
 import { injectable, inject } from 'tsyringe';
@@ -9,6 +8,7 @@ import {
 } from '@modules/users/domain/models/IUserOperations';
 import { IUsersRepository } from '../domain/repositories/IUsersRepository';
 import { IRefreshTokenRepository } from '../domain/repositories/IRefreshTokensRepository';
+import { IHashProvider } from '../providers/HashProvider/models/IHashProvider';
 
 @injectable()
 export class LoginService {
@@ -17,6 +17,8 @@ export class LoginService {
     private usersRepository: IUsersRepository,
     @inject('RefreshTokensRepository')
     private refreshTokenRepository: IRefreshTokenRepository,
+    @inject('HashProvider')
+    private hashProvider: IHashProvider,
   ) {}
 
   async createLogin({
@@ -29,7 +31,10 @@ export class LoginService {
       throw new BadRequestError('Incorrect email/password.');
     }
 
-    const passwordConfirm = await compare(password, user.password);
+    const passwordConfirm = await this.hashProvider.compareHash(
+      password,
+      user.password,
+    );
 
     if (!passwordConfirm) {
       throw new BadRequestError('Incorrect email/password.');
@@ -47,7 +52,7 @@ export class LoginService {
       expiresIn: jwtConfig.refreshToken.expiresIn,
     });
 
-    await this.refreshTokenRepository.create({
+    await this.refreshTokenRepository?.create({
       token: refreshToken,
       expires,
       userId: user.id,

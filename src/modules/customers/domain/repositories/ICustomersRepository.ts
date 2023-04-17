@@ -9,9 +9,9 @@ export interface ICustomersRepository {
     skip,
     take,
   }: PaginationParams): Promise<PaginationProperties>;
-  findByName(name: string): Promise<ICustomer | null>;
-  findByEmail(email: string): Promise<ICustomer | null>;
-  findById(id: string): Promise<ICustomer | null>;
+  findByName(name: string): Promise<ICustomer | null | undefined>;
+  findByEmail(email: string): Promise<ICustomer | null | undefined>;
+  findById(id: string): Promise<ICustomer | null | undefined>;
   update(customer: ICustomer): Promise<ICustomer | null>;
   delete(customer: ICustomer): Promise<void>;
 }
